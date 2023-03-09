@@ -13,12 +13,12 @@ function validarCedula(cedula) {
 
     cedula = document.getElementById('cedula').value;
 
-    console.log(typeof (cedula));
+    var numero, suma = 0, resultado = 0;
 
-    var numero, suma, resultado;
 
     for (i = 0; i < cedula.length; i++) {
-        numero = cedula.split('');
+
+        numero = parseInt(cedula.charAt(i));
 
         if (i % 2 == 0) {
             numero = numero * 2;
@@ -29,16 +29,18 @@ function validarCedula(cedula) {
 
         }
         suma = suma + numero;
+
     }
 
     if (suma % 11 != 0) {
-        resultado = 11 - (suma % 11);
-        if (resultado == numero) {
-            document.getElementById('resultado').innerHTML = '<p> Cedula Correcta </p>';
+        resultado = suma % 11;
+        if (resultado == cedula.charAt(10)) {
+            document.getElementById('resultado').innerHTML = window.alert("Cedula Correcta");
         } else {
-            document.getElementById('resultado').innerHTML = '<p> Cedula Incorrecta </p>';
+            document.getElementById('resultado').innerHTML = window.alert("Cedula Incorrecta");
         }
+    } else {
+        document.getElementById('resultado').innerHTML = window.alert("Cedula Correcta");
     }
-
 
 }
