@@ -34,7 +34,7 @@ function validarCedula(cedula) {
 
     if (suma % 11 != 0) {
         resultado = suma % 11;
-        if (resultado == cedula.charAt(10)) {
+        if (resultado == numero) {
             document.getElementById('resultado').innerHTML = window.alert("Cedula Correcta");
         } else {
             document.getElementById('resultado').innerHTML = window.alert("Cedula Incorrecta");
