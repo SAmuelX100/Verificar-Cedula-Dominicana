@@ -1,46 +1,36 @@
 window.addEventListener("load", function () {
-    cedula.addEventListener("keypress", soloNumeros, false);
+    document.getElementById('cedula').addEventListener("keypress", soloNumeros, false);
 });
 
 function soloNumeros(e) {
-    var key = window.event ? e.which : e.keyCode;
+    var key = e.which || e.keyCode;
     if (key < 48 || key > 57) {
         e.preventDefault();
     }
 }
 
-function validarCedula(cedula) {
+function validarCedula() {
+    var cedula = document.getElementById('cedula').value.replace(/-/g, '');
 
-    cedula = document.getElementById('cedula').value;
-
-    var numero, suma = 0, resultado = 0;
-
-
-    for (i = 0; i < cedula.length; i++) {
-
-        numero = parseInt(cedula.charAt(i));
-
-        if (i % 2 == 0) {
-            numero = numero * 2;
-
-            if (numero > 10) {
-                numero = numero - 10;
-            }
-
-        }
-        suma = suma + numero;
-
+    if (cedula.length !== 11 || !/^\d+$/.test(cedula)) {
+        alert("La cédula debe tener 11 dígitos.");
+        return false;
     }
 
-    if (suma % 11 != 0) {
-        resultado = suma % 11;
-        if (resultado == numero) {
-            document.getElementById('resultado').innerHTML = window.alert("Cedula Correcta");
-        } else {
-            document.getElementById('resultado').innerHTML = window.alert("Cedula Incorrecta");
-        }
+    var peso = [1, 2]; // Alternar entre estos pesos
+    var suma = 0;
+
+    for (var i = 0; i < 10; i++) {
+        var numero = cedula[i] * peso[i % 2];
+        suma += (numero >= 10) ? numero - 9 : numero;
+    }
+
+    var digitoVerificador = (10 - (suma % 10)) % 10;
+
+    if (digitoVerificador == cedula[10]) {
+        alert("Cédula Correcta");
     } else {
-        document.getElementById('resultado').innerHTML = window.alert("Cedula Correcta");
+        alert("Cédula Incorrecta");
     }
-
 }
+
